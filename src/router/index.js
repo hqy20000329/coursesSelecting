@@ -105,8 +105,12 @@ export const constantRouterMap = [
       funcNode: '0'
     },
     children: asyncRouterMap
+  },
+  {
+    name: 'refresh',
+    path: '/refresh',
+    component: () => import('@/utils/refresh')
   }
-
 ]
 
 const createRouter = () => new Router({

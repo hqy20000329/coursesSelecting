@@ -71,16 +71,15 @@ export default {
   methods: {
     handleSelectionChange(val) {
       this.delCoursesIds = { cosIds: val.map((item) => item.cosId) }
-      // console.log(this.delCoursesIds)
     },
     delCourses(ids) {
-      // console.log(ids)
       this.$store.dispatch('student/delCourses', ids).then((res) => {
         this.$message({
           message: '退选成功',
           type: 'success',
         })
-        location.reload()
+        this.$store.state.user.route = '/selected'
+          this.$router.replace('/refresh')
       })
     },
     getForm() {

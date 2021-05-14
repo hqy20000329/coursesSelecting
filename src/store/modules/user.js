@@ -5,7 +5,8 @@ import { login, getInfo, updatePwd, getVer } from '@/api/user.js'
 const getDefaultState = () => {
   return {
     token: getItem('token'),
-    info: {}
+    info: {},
+    route: '/info'
   }
 }
 

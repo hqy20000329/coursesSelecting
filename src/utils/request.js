@@ -43,12 +43,8 @@ service.interceptors.request.use(config => {
   // 如果有token则 添加到headers中
   if (token) {
     config.headers['X-Token'] = token
-    // config.headers.Authorization = token
   }
-
-  // if(config.method!='get'){
-    config.data=qs.stringify(config.data);
-  // }
+  config.data=qs.stringify(config.data, {indices: false});
   console.log('发送的数据为',config.data)
   return config
 }, error => {

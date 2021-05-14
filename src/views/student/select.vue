@@ -136,13 +136,14 @@ export default {
       this.currentRow = val
     },
     handleEdit(id) {
-      this.$store.dispatch('student/getCourses', {cosId: id}).then(
+      this.$store.dispatch('student/getCourses', { cosId: id }).then(
         () => {
           this.$message({
             message: '选课成功',
             type: 'success',
           })
-          location.reload()
+          this.$store.state.user.route = '/select'
+          this.$router.replace('/refresh')
         },
         () => {
           this.$message({
@@ -153,13 +154,14 @@ export default {
       )
     },
     delCourses(id) {
-      this.$store.dispatch('student/delCourses', {cosIds: [id]}).then(
+      this.$store.dispatch('student/delCourses', { cosIds: [id] }).then(
         () => {
           this.$message({
             message: '退选成功',
             type: 'success',
           })
-          location.reload()
+          this.$store.state.user.route = '/select'
+          this.$router.replace('/refresh')
         },
         () => {
           this.$message({
@@ -169,7 +171,7 @@ export default {
         }
       )
     },
-  },
+  }
 }
 </script>
 

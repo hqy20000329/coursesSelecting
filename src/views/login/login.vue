@@ -361,7 +361,8 @@ $light_gray: #eee;
   left: 50%;
   transform: translate(-50%,-100%);
   p {
-    line-height: 20px;
+    line-height: 5px;
+    font-size: 8px
   }
 }
 </style>

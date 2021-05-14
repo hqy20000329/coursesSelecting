@@ -55,13 +55,15 @@ export default {
       },
       uName: '',
       levelList: null,
+      isRouterAlive: true
     }
   },
   beforeCreate() {
   },
   created() {
     this.getData()
-    this.$router.push({ path: '/info' })
+
+    this.$router.push({ path: this.$store.state.user.route })   
   },
   methods: {
     handleCommand(command) {

@@ -2,7 +2,8 @@ import { getList, getLessons, delCourses, getCourses, getReList, getadmission } 
 
 const getDefaultState = () => {
   return {
-    lessons: []
+    lessons: [],
+    total: ''
   }
 }
 

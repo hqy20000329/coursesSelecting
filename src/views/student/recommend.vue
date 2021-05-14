@@ -82,8 +82,8 @@ export default {
   beforeCreate() {
     if (this.$store.state.student.lessons.length !== 0) {
       Promise.resolve().then(() => {
-        console.log('有')
         this.tableData = this.$store.state.student.lessons
+        this.total = this.$store.state.student.total
         this.render = true
         this.$nextTick(() => {
           // 以服务的方式调用的 Loading 需要异步关闭
@@ -93,6 +93,7 @@ export default {
     } else {
       this.$store.dispatch('student/getReList').then((res) => {
         this.$store.state.student.lessons = res.data.data.coursesVOList
+        this.$store.state.student.total = res.data.data.coursesCount
         this.tableData = res.data.data.coursesVOList
         this.total = res.data.data.coursesCount
         this.$nextTick(() => {
@@ -116,13 +117,14 @@ export default {
       this.currentRow = val
     },
     handleEdit(id) {
-      this.$store.dispatch('student/getCourses', id).then(
+      this.$store.dispatch('student/getCourses', {cosId:id}).then(
         () => {
           this.$message({
             message: '选课成功',
             type: 'success',
           })
-          location.reload()
+          this.$store.state.user.route = '/recommend'
+          this.$router.replace('/refresh')
         },
         () => {
           this.$message({
