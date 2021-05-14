@@ -55,7 +55,7 @@
         </el-table-column>
         <el-table-column prop="userSex" label="性别" align="center">
         </el-table-column>
-        <el-table-column prop="userApart" label="开设学院" align="center">
+        <el-table-column prop="userApart" label="学院" align="center">
         </el-table-column>
         <el-table-column prop="userMajor" label="专业" align="center">
         </el-table-column>
@@ -105,7 +105,7 @@ export default {
       this.loadingInstance = this.$loading({
         target: '.el-main',
       })
-      this.$store.dispatch('teacher/getStudents', row.cosId).then((res) => {
+      this.$store.dispatch('teacher/stuMan', {cosId: row.cosId}).then((res) => {
         this.studentsTable = res.data.data
         this.$nextTick(() => {
           // 以服务的方式调用的 Loading 需要异步关闭

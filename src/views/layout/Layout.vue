@@ -37,7 +37,6 @@
         <router-view/>
       </el-main>
     </el-container>
-
     <!-- dialog -->
     <loginUser ref="lU"/>
   </el-container>
@@ -62,6 +61,7 @@ export default {
   },
   created() {
     this.getData()
+    this.$router.push({ path: '/info' })
   },
   methods: {
     handleCommand(command) {

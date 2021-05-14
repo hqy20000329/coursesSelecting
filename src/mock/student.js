@@ -3,7 +3,7 @@ export function list () {
     code: 200,
     msg: '成功',
     data: {
-      records: [
+      coursesVOList: [
         {
           cosId: '00023',
           cosName: '单片机系统设计I',
@@ -342,7 +342,7 @@ export function reList () {
     code: 200,
     msg: '成功',
     data: {
-      records: [
+      coursesVOList: [
         {
           cosId: '00023',
           cosName: '单片机系统设计I',

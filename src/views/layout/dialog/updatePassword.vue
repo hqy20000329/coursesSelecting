@@ -75,7 +75,6 @@ export default {
         //传给后台所需要的参数
         newpassword1: '',
         password: '',
-        username: '',
       },
       dialogFormVisible: false,
 
@@ -96,8 +95,8 @@ export default {
         if (valid) {
           this.$store
             .dispatch('user/updatePwd', {
-              account: this.resetForm.username,
               password: this.resetForm.password,
+              newPassword: this.resetForm.newpassword1,
             })
             .then((res) => {
               if (res.data.code === 200) {

@@ -32,11 +32,10 @@
         </el-table-column>
         <el-table-column prop="cosCap" label="容量" align="center">
         </el-table-column>
-        <el-table-column prop="cosStu" label="现有人数" align="center">
-        </el-table-column>
       </el-table>
       <div style="margin-top: 20px">
         <el-button @click="delCourses(delCoursesIds)">退选</el-button>
+        <el-button @click="getForm">导出课表</el-button>
       </div>
     </div>
   </div>
@@ -48,7 +47,7 @@ export default {
   data() {
     return {
       tableData: [],
-      delCoursesIds: [],
+      delCoursesIds: {},
       multipleTable: [],
       render: false,
       loadingInstance: null,
@@ -71,7 +70,7 @@ export default {
   },
   methods: {
     handleSelectionChange(val) {
-      this.delCoursesIds = val.map((item) => item.cosId)
+      this.delCoursesIds = { cosIds: val.map((item) => item.cosId) }
       // console.log(this.delCoursesIds)
     },
     delCourses(ids) {
@@ -84,7 +83,20 @@ export default {
         location.reload()
       })
     },
-  },
+    getForm() {
+      this.$store.dispatch('student/getadmission').then((res) => {
+        let a = document.createElement('a')
+        a.download = 'form'
+        a.style.display = 'none'
+        let url = URL.createObjectURL(res)
+        a.href = url
+        document.body.appendChild(a)
+        a.click()
+        URL.revokeObjectURL(url) // 销毁
+        document.body.removeChild(a)
+      })
+    }
+  }
 }
 </script>
 

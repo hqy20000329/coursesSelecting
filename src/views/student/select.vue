@@ -107,8 +107,10 @@ export default {
     //   this.selected = this.$store.state.student.lessons.map(
     //     (item) => item.cosId
     //   )
-    this.$store.dispatch('student/getList', 1).then((res) => {
-      this.tableData = res.data.data.records
+    this.$store.dispatch('student/getList').then((res) => {
+      this.tableData = res.data.data.coursesVOList.sort(
+        (a, b) => a.cosId - b.cosId
+      )
       // .filter(
       //   (item) => this.selected.indexOf(item.cosId) === -1
       // )
@@ -134,7 +136,7 @@ export default {
       this.currentRow = val
     },
     handleEdit(id) {
-      this.$store.dispatch('student/getCourses', id).then(
+      this.$store.dispatch('student/getCourses', {cosId: id}).then(
         () => {
           this.$message({
             message: '选课成功',
@@ -151,7 +153,7 @@ export default {
       )
     },
     delCourses(id) {
-      this.$store.dispatch('student/delCourses', [id]).then(
+      this.$store.dispatch('student/delCourses', {cosIds: [id]}).then(
         () => {
           this.$message({
             message: '退选成功',

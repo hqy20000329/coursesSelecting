@@ -9,7 +9,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">Login</h3>
+        <h1 class="title">Login</h1>
       </div>
 
       <el-form-item prop="account">
@@ -56,6 +56,20 @@
         </el-form-item>
       </el-tooltip>
 
+      <el-form-item>
+         <span class="svg-container" style="float: left">
+          <i class="el-icon-key"></i>
+        </span>
+        <el-input
+          class="ver"
+          name="vericode"
+          v-model="loginForm.vercode"
+          type="text"
+          tabindex="3"
+          placeholder="验证码"
+        />
+        <img :src="ver" @click="showVer" style="width: 100px; height:47px;float:right">
+      </el-form-item>
       <el-button
         :loading="loading"
         type="primary"
@@ -64,11 +78,16 @@
         >登录</el-button
       >
     </el-form>
+    <div class="footer">
+      <p>江西财经大学</p>
+      <p>信息管理学院</p>
+      <p>朱文宇、谢天琪</p>
+    </div>
   </div>
 </template>
 
 <script>
-
+/* eslint-disable */
 export default {
   data () {
     var checkID = (rule, value, callback) => {
@@ -86,10 +105,12 @@ export default {
     }
     return {
       loginForm: {
-        // verificationCode: '',
         account: '',
-        password: ''
+        password: '',
+        verkey: '',
+        vercode: ''
       },
+      ver: '',
       capsTooltip: false,
       passwordType: 'password',
       loading: false,
@@ -109,14 +130,21 @@ export default {
             message: '请填写密码'
           },
           { min: 6, message: '密码至少为6位', trigger: 'blur' }
+        ],
+        vercode: [{
+          required: true,
+          trigger: 'blur',
+          message: '请填写验证码'
+        }
         ]
       }
     }
   },
+  created () {
+    this.showVer()
+  },
   methods: {
     checkCapslock ({ shiftKey, key } = {}) {
-      // console.log('shiftKey', shiftKey)
-      // console.log('key', key)
       if (key && key.length === 1) {
         if (
           (shiftKey && key >= 'a' && key <= 'z') ||
@@ -138,10 +166,21 @@ export default {
       } else {
         this.passwordType = 'password'
       }
-      const el = e.target
-      this.passwordType === ''
-        ? el.setAttribution('style', 'color: #409EFF')
-        : el.setAttribution('style', 'color: #c0c4cc')
+    },
+    showVer () {
+      this.$store.dispatch('user/getVer').then(res => {
+        if (res.data.code === 200) {
+          this.loginForm.verkey = res.data.data.key
+          this.ver = res.data.data.image
+        } else {
+          throw ''
+        }
+      }), () => {
+        this.$message({
+          message: '获取验证码失败',
+          type: 'warning'
+        })
+      }
     },
     handleLogin () {
       this.$refs.loginForm.validate((valid) => {
@@ -162,7 +201,6 @@ export default {
                 setTimeout(() => {
                   this.$router.push({
                     name: 'layoutYHGL'
-                    // path: this.redirect || '/'
                   })
                 }, 2000)
               } else {
@@ -237,7 +275,7 @@ $light_gray: #eee;
   background-image: linear-gradient(to right, #e3fdf5, #ffe6fa);
   overflow: hidden;
   text-align: center;
-  line-height: 150px;
+  line-height: 130px;
   font-family: Verdana;
   letter-spacing: 0.05em;
   color: #000;
@@ -245,7 +283,10 @@ $light_gray: #eee;
     border-bottom: 2px solid rgb(128, 125, 125);
     background: #fff;
     border-radius: 0px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+    .el-input {
+      float: left
+    }
     .el-input::placeholder {
       text-transform: uppercase;
     }
@@ -278,6 +319,7 @@ $light_gray: #eee;
     color: $dark_gray;
     vertical-align: middle;
     width: 10px;
+    float: left;
   }
   .title-container {
     // position: relative;
@@ -287,7 +329,6 @@ $light_gray: #eee;
     }
   }
   .btn {
-    // background:none;
     width: 250px;
   }
   .show-pwd {
@@ -304,10 +345,23 @@ $light_gray: #eee;
     right: 0;
     bottom: 6px;
   }
+  .ver {
+    display: inline-block;
+    width: 60px;
+  }
   @media only screen and (max-width: 470px) {
     .thirdparty-button {
       display: none;
     }
+  }
+}
+.footer {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%,-100%);
+  p {
+    line-height: 20px;
   }
 }
 </style>

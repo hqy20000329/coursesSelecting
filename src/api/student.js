@@ -3,14 +3,14 @@ import request from '@/utils/request'
 export function getList () {
   return request({
     url: '/user/list',
-    method: 'get'
+    method: 'post'
   })
 }
 
 export function getLessons () {
   return request({
     url: '/student/lessions',
-    method: 'get'
+    method: 'post'
   })
 }
 
@@ -22,17 +22,24 @@ export function delCourses (delCoursesIds) {
   })
 }
 
-export function getCourses (selCoursesId) {
+export function getCourses (data) {
   return request({
     url: '/student/getCourses',
     method: 'post',
-    data: selCoursesId
+    data
   })
 }
 
 export function getReList () {
   return request({
     url: '/user/relist',
-    method: 'get'
+    method: 'post'
+  })
+}
+
+export function getadmission () {
+  return request({
+    url: '/student/getadmission',
+    method: 'post'
   })
 }

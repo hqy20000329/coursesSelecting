@@ -2,11 +2,13 @@
 import axios from 'axios'
 import store from '../store/index.js'
 import qs from 'qs'
-axios.defaults.baseURL= '/api'
+// axios.defaults.baseURL= '/api'
+axios.defaults.baseURL= 'http://localhost:8080'
+
 //创建 axios 实例
 const service = axios.create({
   // baseURL: '/api',  //api的base_url
-  timeout: 5000 //请求超时时间
+  timeout: 10000 //请求超时时间
 })
 
 
@@ -41,12 +43,13 @@ service.interceptors.request.use(config => {
   // 如果有token则 添加到headers中
   if (token) {
     config.headers['X-Token'] = token
+    // config.headers.Authorization = token
   }
 
   // if(config.method!='get'){
-  //   config.data=qs.stringify(config.data);
+    config.data=qs.stringify(config.data);
   // }
-  console.log('发送的数据为', config.data)
+  console.log('发送的数据为',config.data)
   return config
 }, error => {
   return Promise.reject(error)

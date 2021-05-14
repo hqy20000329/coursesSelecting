@@ -1,4 +1,4 @@
-import { getList, getLessons, delCourses, getCourses, getReList } from '@/api/student'
+import { getList, getLessons, delCourses, getCourses, getReList, getadmission } from '@/api/student'
 
 const getDefaultState = () => {
   return {
@@ -20,6 +20,10 @@ const actions = {
   // 获取已选课程
   getLessons () {
     return getLessons()
+  },
+  // 导出课表
+  getadmission () {
+    return getadmission()
   },
   // 获取全部课程
   getList () {

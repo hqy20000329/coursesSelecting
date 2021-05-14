@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { setItem, getItem, removeItem } from '@/utils/storage.js'
-import { login, getInfo, updatePwd } from '@/api/user.js'
+import { login, getInfo, updatePwd, getVer } from '@/api/user.js'
 
 const getDefaultState = () => {
   return {
@@ -28,6 +28,10 @@ const mutations = {
 }
 
 const actions = {
+  // 获取验证码
+  getVer() {
+    return getVer()
+  },
   // 用户登录
   login({ commit }, loginForm) {
     return login(loginForm)

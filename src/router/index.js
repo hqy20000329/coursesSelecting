@@ -66,16 +66,16 @@ const asyncRouterMap = [
       funcNode: 'a2',
       role: 'admin'
     }
-  },
-  {
-    path: '/addexams',
-    component: () => import('@/views/admin/addexams'),
-    meta: {
-      title: '添加考试',
-      funcNode: 'a3',
-      role: 'admin'
-    }
   }
+  // {
+  //   path: '/addexams',
+  //   component: () => import('@/views/admin/addexams'),
+  //   meta: {
+  //     title: '添加考试',
+  //     funcNode: 'a3',
+  //     role: 'admin'
+  //   }
+  // }
 ]
 
 export const constantRouterMap = [

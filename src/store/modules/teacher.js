@@ -17,7 +17,7 @@ const actions = {
     return getCourses()
   },
   // 查看学生
-  getStudents ({ commit }, cosId) {
+  stuMan ({ commit }, cosId) {
     return getStudents(cosId)
   }
 }

@@ -80,15 +80,28 @@ export default {
   },
 
   beforeCreate() {
-    this.$store.dispatch('student/getReList', 1).then((res) => {
-      this.tableData = res.data.data.records
-      this.total = res.data.data.coursesCount
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        this.loadingInstance.close()
+    if (this.$store.state.student.lessons.length !== 0) {
+      Promise.resolve().then(() => {
+        console.log('有')
+        this.tableData = this.$store.state.student.lessons
+        this.render = true
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          this.loadingInstance.close()
+        })
       })
-      this.render = true
-    })
+    } else {
+      this.$store.dispatch('student/getReList').then((res) => {
+        this.$store.state.student.lessons = res.data.data.coursesVOList
+        this.tableData = res.data.data.coursesVOList
+        this.total = res.data.data.coursesCount
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          this.loadingInstance.close()
+        })
+        this.render = true
+      })
+    }
   },
   created() {
     this.loadingInstance = this.$loading({
@@ -120,6 +133,7 @@ export default {
       )
     },
   },
+  computed: { setData() {} },
 }
 </script>
 

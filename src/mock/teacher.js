@@ -43,7 +43,7 @@ export function getCourses () {
   }
 }
 
-export function getStudents (cosId) {
+export function stuMan (cosId) {
   return {
     code: 200,
     msg: '成功',
